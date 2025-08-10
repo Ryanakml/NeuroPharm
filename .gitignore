@@ -1,0 +1,22 @@
+# Ignore Python venv
+venv/
+.venv/
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtualenv metadata
+*.egg-info/
+*.egg
+
+# Environment config
+.env
+.env.*
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# MacOS metadata
+.DS_Store

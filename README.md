@@ -1,69 +1,102 @@
-# NeuroPharm - Platform AI End-to-End untuk Penemuan Obat
+# 1) Markdown cell (penjelasan singkat)
 
-Proyek ini adalah prototipe platform AI untuk memprediksi afinitas ikatan antara molekul ligan dan protein target, sebagai bagian dari alur kerja penemuan obat.
+## Setup environment (venv) dan instal dependency
 
-## Arsitektur
+Gunakan virtual environment agar dependency terisolasi.
+Perintah di bawah membuat `./venv`, mengaktifkannya, lalu meng-install semua paket dari `requirements.txt` menggunakan binary `./venv/pip`.
 
-Platform ini terdiri dari tiga komponen utama:
+**Catatan:** Jangan memanggil `pip install ...` langsung (global). Selalu gunakan `./venv/bin/pip` (Linux/mac) atau `./venv\Scripts\pip.exe` (Windows).
 
-1. **Jupyter Notebook (`drug_discovery_pipeline.ipynb`):** Berisi seluruh alur kerja dari pengumpulan data, pemodelan, hingga validasi docking, dengan penjelasan mendetail.
-    
-2. **API Backend (folder `api/`):** Sebuah API berbasis FastAPI yang menyajikan model GNN terlatih untuk prediksi.
-    
-3. **Dashboard Frontend (`app.py` dan folder `pages/`):** Aplikasi web interaktif berbasis Streamlit untuk interaksi pengguna dan visualisasi hasil.
-    
 
-## Teknologi yang Digunakan
+---
 
-- **Backend:** Python, FastAPI, PyTorch, PyTorch Geometric, Transformers (ESM-2)
-    
-- **Data:** RDKit, Biopython, Pandas, NumPy
-    
-- **Simulasi:** AutoDock Vina, Open Babel
-    
-- **Frontend:** Streamlit, stmol (py3Dmol)
-    
+# 2) Bash cell (Linux / macOS)
 
-## Instalasi
+## 1) buat venv
+python3 -m venv ./venv
 
-1. Clone repository:
-    
-    git clone https://github.com/your-username/ai-drug-discovery.git
-    
-    cd ai-drug-discovery
-    
-2. **Instal AutoDock Vina & MGLTools/OpenBabel:**
-    
-    - Ikuti petunjuk instalasi dari situs resmi mereka. Pastikan `vina` dan `obabel` dapat diakses dari command line.
-        
-3. Buat dan aktifkan environment conda:
-    
-    conda env create -f environment.yml
-    
-    conda activate drug_discovery_env
-    
+## 2) aktifkan (opsional saat manual)
+source ./venv/bin/activate
 
-## Cara Menjalankan
+## 3) upgrade pip/setuptools/wheel pakai python dari venv
+./venv/bin/python -m pip install --upgrade pip setuptools wheel
 
-1. Jalankan Jupyter Notebook:
-    
-    jupyter notebook drug_discovery_pipeline.ipynb
-    
-    - Jalankan sel-sel di dalam notebook untuk melatih model dan menghasilkan file-file yang diperlukan (misalnya, model yang disimpan, file PDBQT).
-        
-2. Jalankan API Backend:
-    
-    cd api
-    
-    uvicorn main:app --reload
-    
-    - API akan berjalan di `http://127.0.0.1:8000`.
-        
-3. Jalankan Dashboard Frontend:
-    
-    cd..
-    
-    streamlit run app.py
-    
-    - Buka browser dan akses `http://localhost:8501`.
-        
+if there is a mistake delete it by
+
+rm -rf venv
+
+## 4) tulis requirements.txt (atau ganti dengan file yang sudah ada)
+cat > requirements.txt << 'REQ'
+
+Salin semua nya yang di bawah ini
+
+```
+# Core data + science
+pandas>=1.5
+numpy>=1.24
+scikit-learn>=1.2
+matplotlib>=3.7
+ipywidgets>=8.0
+
+# Cheminformatics & bio
+rdkit-pypi>=2023.9.5
+biopython>=1.80
+chembl-webresource-client>=0.10
+openbabel
+
+# ML / DL
+torch>=2.0
+torchvision
+torchaudio
+### NOTE: torch-geometric installation often requires platform-specific wheels
+torch-geometric
+transformers>=4.35
+
+# Utilities
+tqdm
+xgboost
+jupyter
+streamlit
+nglview
+stmol
+
+REQ
+```
+
+## 5) install dari venv pip (gunakan -r untuk production)
+./venv/bin/pip install -r requirements.txt
+
+---
+
+# 3) PowerShell / Windows (cmd / PS)
+
+## PowerShell
+python -m venv .\venv
+## aktifkan
+.\venv\Scripts\Activate.ps1    ## (atau .\venv\Scripts\activate.bat untuk cmd)
+
+## upgrade pip
+.\venv\Scripts\python.exe -m pip install --upgrade pip setuptools wheel
+
+## install dari requirements
+.\venv\Scripts\pip.exe install -r requirements.txt
+
+
+⸻
+
+# 4) Catatan penting & tips
+	•	torch-geometric sering perlu wheel spesifik (CUDA/CPU). Jika kamu pakai CUDA, install sesuai instruksi PyG: gunakan perintah yang cocok dengan versi torch dan CUDA (lihat docs resmi PyG). Jika tidak yakin, pakai CPU wheel.
+	•	rdkit-pypi adalah cara cepat install RDKit lewat pip; untuk performa/compatibility lebih baik gunakan conda jika mengalami masalah.
+	•	AutoDock Vina dan OpenBabel bukan paket pip murni — ikuti instalasi resmi mereka (binaries) dan pastikan vina & obabel berada di PATH. Contoh singkat:
+	•	macOS: brew install vina open-babel
+	•	Ubuntu: sudo apt install autodock-vina openbabel (atau unduh release dari situs resmi)
+	•	Jika kamu menggunakan container / server tanpa GUI, pastikan dependency native terinstall (libglu, etc.) untuk tools visualisasi.
+
+⸻
+
+# 5) Cara menambahkan ke notebook secara otomatis (opsional)
+
+Kamu bisa jalankan cell Python ini untuk menulis requirements.txt dari notebook:
+
+requirements_text = open('requirements.txt').read()
+print(requirements_text)

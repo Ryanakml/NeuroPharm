@@ -1,0 +1,29 @@
+# Core data + science
+pandas>=1.5
+numpy>=1.24
+scikit-learn>=1.2
+matplotlib>=3.7
+ipywidgets>=8.0
+
+# Cheminformatics & bio
+rdkit-pypi==2023.3.1b1
+biopython>=1.80
+chembl-webresource-client>=0.10
+openbabel
+
+# ML / DL
+torch>=2.0
+torchvision
+torchaudio
+# NOTE: torch-geometric installation often requires platform-specific wheels
+torch-geometric
+transformers>=4.35
+
+# Utilities
+tqdm
+xgboost
+jupyter
+streamlit
+nglview
+stmol
+
