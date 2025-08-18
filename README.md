@@ -1,102 +1,132 @@
-# 1) Markdown cell (penjelasan singkat)
+# NeuroPharm: AI Platform for Drug Discovery
 
-## Setup environment (venv) dan instal dependency
+## Project Overview
 
-Gunakan virtual environment agar dependency terisolasi.
-Perintah di bawah membuat `./venv`, mengaktifkannya, lalu meng-install semua paket dari `requirements.txt` menggunakan binary `./venv/pip`.
+NeuroPharm is an end-to-end AI platform designed to accelerate drug discovery by predicting molecular interactions with target proteins. This project focuses on using machine learning and molecular docking techniques to identify potential drug candidates for specific protein targets, with a current focus on EGFR (Epidermal Growth Factor Receptor).
 
-**Catatan:** Jangan memanggil `pip install ...` langsung (global). Selalu gunakan `./venv/bin/pip` (Linux/mac) atau `./venv\Scripts\pip.exe` (Windows).
+The platform streamlines the drug discovery process by:
+1. Processing molecular data from public databases
+2. Generating meaningful features from chemical structures
+3. Training AI models to predict bioactivity
+4. Validating predictions through molecular docking simulations
 
+## Project Structure
 
----
+```
+├── CONCEPT/               # Project concept and overview
+│   └── concept.ipynb
+├── EDA/                   # Exploratory Data Analysis
+│   └── eda.ipynb
+├── PREPROCESSING & MODELLING/  # Data preprocessing and model training
+│   ├── proprocessing.ipynb
+│   └── proprocessing_model_evaluation.ipynb
+├── DOCKING/               # Molecular docking simulations
+│   └── docking.ipynb
+├── data/                  # Dataset files
+│   ├── EGFR_bioactivity.csv
+│   ├── EGFR_bioactivity_cleaned.csv
+│   ├── X_train_smiles.csv
+│   ├── X_valid_smiles.csv
+│   ├── X_test_smiles.csv
+│   ├── y_train.csv
+│   ├── y_valid.csv
+│   ├── y_test.csv
+│   └── pdb/               # Protein structure files
+├── model/                 # Trained models
+│   └── xgb_model.json     # XGBoost model
+└── requirements.txt       # Project dependencies
+```
 
-# 2) Bash cell (Linux / macOS)
+## Key Features
 
-## 1) buat venv
+- **Molecular Representation**: Converts chemical structures (SMILES) into machine-readable formats using Morgan Fingerprints and Graph-based representations
+- **Machine Learning Models**: Implements baseline models and advanced Graph Neural Networks (GNNs) for bioactivity prediction
+- **Molecular Docking**: Validates AI predictions through physics-based simulations of protein-ligand interactions
+- **End-to-End Pipeline**: Provides a complete workflow from data preparation to model evaluation
+
+## Setup Environment
+
+### For Linux/macOS
+
+```bash
+# 1) Create virtual environment
 python3 -m venv ./venv
 
-## 2) aktifkan (opsional saat manual)
+# 2) Activate virtual environment
 source ./venv/bin/activate
 
-## 3) upgrade pip/setuptools/wheel pakai python dari venv
+# 3) Upgrade pip and essential packages
 ./venv/bin/python -m pip install --upgrade pip setuptools wheel
 
-if there is a mistake delete it by
-
-rm -rf venv
-
-## 4) tulis requirements.txt (atau ganti dengan file yang sudah ada)
-cat > requirements.txt << 'REQ'
-
-Salin semua nya yang di bawah ini
-
-```
-# Core data + science
-pandas>=1.5
-numpy>=1.24
-scikit-learn>=1.2
-matplotlib>=3.7
-ipywidgets>=8.0
-
-# Cheminformatics & bio
-rdkit-pypi>=2023.9.5
-biopython>=1.80
-chembl-webresource-client>=0.10
-openbabel
-
-# ML / DL
-torch>=2.0
-torchvision
-torchaudio
-### NOTE: torch-geometric installation often requires platform-specific wheels
-torch-geometric
-transformers>=4.35
-
-# Utilities
-tqdm
-xgboost
-jupyter
-streamlit
-nglview
-stmol
-
-REQ
-```
-
-## 5) install dari venv pip (gunakan -r untuk production)
+# 4) Install dependencies
 ./venv/bin/pip install -r requirements.txt
+```
 
----
+### For Windows (PowerShell)
 
-# 3) PowerShell / Windows (cmd / PS)
-
-## PowerShell
+```powershell
+# 1) Create virtual environment
 python -m venv .\venv
-## aktifkan
-.\venv\Scripts\Activate.ps1    ## (atau .\venv\Scripts\activate.bat untuk cmd)
 
-## upgrade pip
+# 2) Activate virtual environment
+.\venv\Scripts\Activate.ps1    # (or .\venv\Scripts\activate.bat for cmd)
+
+# 3) Upgrade pip and essential packages
 .\venv\Scripts\python.exe -m pip install --upgrade pip setuptools wheel
 
-## install dari requirements
+# 4) Install dependencies
 .\venv\Scripts\pip.exe install -r requirements.txt
+```
 
+## Important Notes & Tips
 
-⸻
+- **torch-geometric** often requires platform-specific wheels. If using CUDA, install according to PyG's official instructions matching your torch and CUDA versions. If unsure, use CPU wheels.
+- **rdkit-pypi** provides a quick way to install RDKit via pip; for better performance/compatibility, consider using conda if you encounter issues.
+- **AutoDock Vina and OpenBabel** are not pure pip packages — follow their official installation instructions and ensure vina & obabel are in your PATH:
+  - macOS: `brew install vina open-babel`
+  - Ubuntu: `sudo apt install autodock-vina openbabel` (or download releases from official sites)
+- If using a container/server without GUI, ensure native dependencies (libglu, etc.) are installed for visualization tools.
 
-# 4) Catatan penting & tips
-	•	torch-geometric sering perlu wheel spesifik (CUDA/CPU). Jika kamu pakai CUDA, install sesuai instruksi PyG: gunakan perintah yang cocok dengan versi torch dan CUDA (lihat docs resmi PyG). Jika tidak yakin, pakai CPU wheel.
-	•	rdkit-pypi adalah cara cepat install RDKit lewat pip; untuk performa/compatibility lebih baik gunakan conda jika mengalami masalah.
-	•	AutoDock Vina dan OpenBabel bukan paket pip murni — ikuti instalasi resmi mereka (binaries) dan pastikan vina & obabel berada di PATH. Contoh singkat:
-	•	macOS: brew install vina open-babel
-	•	Ubuntu: sudo apt install autodock-vina openbabel (atau unduh release dari situs resmi)
-	•	Jika kamu menggunakan container / server tanpa GUI, pastikan dependency native terinstall (libglu, etc.) untuk tools visualisasi.
+## Usage
 
-⸻
+1. Start with the concept notebook to understand the project's scope and approach
+2. Explore the EDA notebook to understand the dataset characteristics
+3. Run the preprocessing notebooks to generate features and train models
+4. Use the docking notebook to validate predictions with molecular docking
 
-# 5) Cara menambahkan ke notebook secara otomatis (opsional)
+## Dependencies
 
-Kamu bisa jalankan cell Python ini untuk menulis requirements.txt dari notebook:
+The project relies on several specialized libraries for cheminformatics, machine learning, and molecular modeling:
 
-requirements_text = open('requirements.txt').read()
-print(requirements_text)
+```
+# Core data science
+numpy
+pandas
+matplotlib
+seaborn
+tqdm
+
+# Cheminformatics & bio
+rdkit-pypi
+biopython
+chembl_webresource_client
+
+# Machine learning
+torch
+scikit-learn
+scipy
+xgboost
+transformers
+
+# Molecular visualization
+nglview
+deepchem
+```
+
+## License
+
+[Add appropriate license information here]
+
+## Contributors
+
+[Add contributor information here]
