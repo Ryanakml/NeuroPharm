@@ -1,0 +1,26 @@
+# Python environment
+myenv311/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints
+
+# Logs
+*.log
+
+# Packages
+*.egg
+*.egg-info/
+dist/
+build/
+
+# PyTorch large files (optional)
+*.pt
+*.pth

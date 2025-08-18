@@ -1,0 +1,15 @@
+numpy
+pandas
+matplotlib
+seaborn
+tqdm
+rdkit-pypi
+biopython
+chembl_webresource_client
+torch==2.8.0
+scikit-learn
+scipy
+xgboost
+transformers
+nglview
+deepchem

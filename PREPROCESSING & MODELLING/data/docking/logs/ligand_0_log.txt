@@ -1,0 +1,50 @@
+=== STDOUT ===
+AutoDock Vina v1.2.7
+#################################################################
+# If you used AutoDock Vina in your work, please cite:          #
+#                                                               #
+# J. Eberhardt, D. Santos-Martins, A. F. Tillack, and S. Forli  #
+# AutoDock Vina 1.2.0: New Docking Methods, Expanded Force      #
+# Field, and Python Bindings, J. Chem. Inf. Model. (2021)       #
+# DOI 10.1021/acs.jcim.1c00203                                  #
+#                                                               #
+# O. Trott, A. J. Olson,                                        #
+# AutoDock Vina: improving the speed and accuracy of docking    #
+# with a new scoring function, efficient optimization and       #
+# multithreading, J. Comp. Chem. (2010)                         #
+# DOI 10.1002/jcc.21334                                         #
+#                                                               #
+# Please see https://github.com/ccsb-scripps/AutoDock-Vina for  #
+# more information.                                             #
+#################################################################
+
+Scoring function : vina
+Rigid receptor: data/docking/receptor.pdbqt
+Ligand: data/docking/ligands/ligand_0.pdbqt
+Grid center: X 15.5 Y -1 Z 21.5
+Grid size  : X 25 Y 25 Z 25
+Grid space : 0.375
+Exhaustiveness: 32
+CPU: 0
+Verbosity: 1
+
+Computing Vina grid ... done.
+Performing docking (random seed: -2110367854) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1            0          0          0
+   2    1.393e-05      7.775      8.405
+   3    1.669e-05      5.097      7.796
+   4    2.144e-05      3.013      6.665
+   5    2.505e-05      7.771      10.17
+   6     4.17e-05      6.295      7.124
+   7    4.185e-05      5.488      7.305
+   8    4.527e-05      4.279      5.388
+   9     0.002288      8.824      10.62
+
+=== STDERR ===
