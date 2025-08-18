@@ -122,11 +122,3 @@ transformers
 nglview
 deepchem
 ```
-
-## License
-
-[Add appropriate license information here]
-
-## Contributors
-
-[Add contributor information here]
